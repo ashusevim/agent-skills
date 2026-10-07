@@ -1,27 +1,30 @@
 # agent-skills
 
-Everyday skills built with [`turn-into-skill`](https://github.com/ashusevim/turn-into-skill). Each directory is one skill: dedup-checked, distilled from official docs, smoke-tested with a live trial.
+Four skills for everyday work, built with [turn-into-skill](https://github.com/ashusevim/turn-into-skill). Each one was checked against its source docs and test-ran before publishing.
 
 ## Install
 
+One skill at a time (replace `-a opencode` with your agent):
+
 ```bash
-# one skill (pick with -s), scoped to your agent (-a):
-npx -y skills add ashusevim/agent-skills -s <skill-name> -g -a <agent> -y
-# e.g. -a opencode | -a claude-code | -a cursor
-# NOTE: bare -g fans out to all agents incl. PromptScript and fails. Always scope -a.
+npx -y skills add ashusevim/agent-skills -s gmail-api -g -a opencode -y
+npx -y skills add ashusevim/agent-skills -s tailwind-utilities -g -a opencode -y
+npx -y skills add ashusevim/agent-skills -s postgres-psql -g -a opencode -y
+npx -y skills add ashusevim/agent-skills -s github-actions -g -a opencode -y
 ```
 
-## Skills
+## What each does
 
-| Skill | Does what | Source |
-|---|---|---|
-| `gmail-api` | Send/read/search Gmail via API (base64url send, `q` search, scopes) | Google Workspace docs |
-| `tailwind-utilities` | Daily Tailwind v4: install, compose, variants, arbitrary values | tailwindcss.com/docs |
-| `postgres-psql` | Postgres on-ramp: createdb, psql, first SELECTs | Official tutorial ch.1–2 |
-| `github-actions` | First workflows: triggers, jobs, checkout, logs | GitHub docs quickstart |
+**gmail-api** — Send, read, and search Gmail through the API. Base64url sending, drafts, `q` search syntax, minimal OAuth scopes. Source: Google Workspace docs.
 
-Not here: Linear → use `openai/skills@linear` (exact match, 10K installs). Postgres tuning → `supabase/agent-skills@supabase-postgres-best-practices` (433K). Tailwind systems → `wshobson/agents@tailwind-design-system` (67K).
+**tailwind-utilities** — Day-to-day Tailwind v4: install via Vite, compose utilities in markup, `hover:`/`sm:`/`dark:` variants, arbitrary values, conflict fixes. Source: tailwindcss.com/docs. For design systems (tokens, components), use `wshobson/agents@tailwind-design-system` instead.
 
-## Versioning
+**postgres-psql** — From zero to querying: `createdb`, first `psql` session, SELECT with WHERE/ORDER BY/DISTINCT, common errors and fixes. Source: official tutorial chapters 1–2. For query tuning, use `supabase/agent-skills@supabase-postgres-best-practices`.
 
-Each skill carries `version:` + `source:` frontmatter and a Changelog. Updates re-ingest the source and bump the version.
+**github-actions** — First workflows that work: file placement, push triggers, jobs vs steps, `actions/checkout`, reading run logs. Source: GitHub docs quickstart.
+
+For Linear, use `openai/skills@linear` — it already exists and is good, so we didn't duplicate it.
+
+## Updates
+
+Every skill has `version:` and `source:` in its frontmatter plus a changelog. When the source docs change, the skill gets re-ingested and the version bumps.
